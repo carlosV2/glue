@@ -1,0 +1,159 @@
+{
+  "name": "@carlosv2/glue",
+  "description": "Dependency injection library that stays out of the way",
+  "version": "1.0.0",
+  "source": "./src/index.ts",
+  "main": "./dist/cjs/index.js",
+  "types": "./dist/cjs/index.d.ts",
+  "type": "module",
+  "author": "carlosV2@gmail.com",
+  "license": "MIT",
+  "keywords": [
+    "glue",
+    "nodejs",
+    "dic",
+    "container",
+    "yaml"
+  ],
+  "scripts": {
+    "build": "npm run clean && npm run build:cjs && npm run build:esm && npm run fixes",
+    "clean": "rimraf dist",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "fixes": "npx fix-esm-import-path dist",
+    "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
+    "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore"
+  },
+  "files": [
+    "./dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carlosV2/glue.git"
+  },
+  "bugs": {
+    "url": "https://github.com/carlosV2/glue/issues"
+  },
+  "homepage": "https://github.com/carlosV2/glue",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
+    },
+    "./container": {
+      "import": {
+        "types": "./dist/esm/container/index.d.ts",
+        "default": "./dist/esm/container/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/container/index.d.ts",
+        "default": "./dist/cjs/container/index.js"
+      }
+    },
+    "./context": {
+      "import": {
+        "types": "./dist/esm/context/index.d.ts",
+        "default": "./dist/esm/context/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/context/index.d.ts",
+        "default": "./dist/cjs/context/index.js"
+      }
+    },
+    "./value": {
+      "import": {
+        "types": "./dist/esm/value/index.d.ts",
+        "default": "./dist/esm/value/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/value/index.d.ts",
+        "default": "./dist/cjs/value/index.js"
+      }
+    },
+    "./alias": {
+      "import": {
+        "types": "./dist/esm/alias.d.ts",
+        "default": "./dist/esm/alias.js"
+      },
+      "require": {
+        "types": "./dist/cjs/alias.d.ts",
+        "default": "./dist/cjs/alias.js"
+      }
+    },
+    "./service": {
+      "import": {
+        "types": "./dist/esm/service/index.d.ts",
+        "default": "./dist/esm/service/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/service/index.d.ts",
+        "default": "./dist/cjs/service/index.js"
+      }
+    },
+    "./loader": {
+      "import": {
+        "types": "./dist/esm/processor/loader/index.d.ts",
+        "default": "./dist/esm/processor/loader/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/processor/loader/index.d.ts",
+        "default": "./dist/cjs/processor/loader/index.js"
+      }
+    },
+    "./compiler": {
+      "import": {
+        "types": "./dist/esm/processor/compiler/index.d.ts",
+        "default": "./dist/esm/processor/compiler/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/processor/compiler/index.d.ts",
+        "default": "./dist/cjs/processor/compiler/index.js"
+      }
+    }
+  },
+  "dependencies": {
+    "browser-util-inspect": "^0.2.0",
+    "js-yaml": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/browser-util-inspect": "^0.2.4",
+    "@types/js-yaml": "^4.0.0",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.16.1",
+    "@typescript-eslint/parser": "^7.16.1",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "fix-esm-import-path": "^1.10.0",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.0.0"
+  },
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+      "prettier"
+    ],
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "rules": {
+      "no-undef": "off",
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error"
+      ],
+      "import/no-unresolved": "off",
+      "import/extensions": "off"
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "arrowParens": "avoid"
+  }
+}
