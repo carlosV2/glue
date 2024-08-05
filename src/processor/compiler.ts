@@ -7,8 +7,7 @@ import { DiError } from '../error';
 import { Instantiation } from '../compilable/instantiation';
 import { Importation } from '../compilable/importation';
 import ts, {
-  ExpressionStatement,
-  isVariableStatement,
+  type ExpressionStatement,
   type HasModifiers,
   type Statement,
 } from 'typescript';
@@ -24,6 +23,7 @@ const {
   createPrinter,
   createSourceFile,
   isClassDeclaration,
+  isVariableStatement,
   isFunctionDeclaration,
 } = ts;
 

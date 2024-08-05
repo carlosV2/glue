@@ -1,4 +1,4 @@
-import ts, { SyntaxKind, type Expression } from 'typescript';
+import ts, { type Expression } from 'typescript';
 import { Importer } from './importer';
 import {
   isArray,
@@ -10,7 +10,7 @@ import {
 } from './utils';
 import { DiError } from './error';
 
-const { factory } = ts;
+const { factory, SyntaxKind } = ts;
 
 export abstract class Compilable {
   protected compileArg(importer: Importer, value: unknown): Expression {
