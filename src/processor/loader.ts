@@ -369,11 +369,7 @@ export abstract class Loader extends Processor<Buildable> {
     const aliases = this.aliases;
     const services = this.services[containerScope] ?? {};
 
-    const container = new AssemblingContainer(params, aliases, {
-      container: new Runtime(context => context.getContainer()),
-      ...services,
-    });
-
+    const container = new AssemblingContainer(params, aliases, services);
     if (parent) {
       return new FallbackContainer(container, parent);
     }
