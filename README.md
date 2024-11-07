@@ -126,7 +126,7 @@ defined as an string with one of the following leading characters:
 
       my.parent:
         symbol: '(my/parent)~'
-        args: ['>children']
+        args: ['}children']
     ```
     Will be interpreted as `{'my.child1': '<my.child1', 'my.child2': '<my.child2'}` as the argument to the `my.parent` service.
 - `%`: This returns the environment variable. It has the format `%<name>[/<type>[/<fallback>]]` where:
