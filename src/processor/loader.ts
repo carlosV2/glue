@@ -3,7 +3,7 @@ import { Buildable } from '../buildable';
 import { DefinitionContext } from '../context/index';
 import { Call, Processor } from '../processor';
 import { Service, Tag } from '../service';
-import { Constructor, Factory, Property, Runtime } from '../service/index';
+import { Constructor, Factory, Property } from '../service/index';
 import { Dictionary, Maybe, has, isFunction, isString } from '../utils';
 import {
   EnvStr,
@@ -42,7 +42,7 @@ export abstract class Loader extends Processor<Buildable> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected glob(_: string): string[] {
     throw new DiError(
-      "Unfortunately, Loaders don't have this functionality. Please, use a Compiler instead",
+      "Unfortunately, Loaders don't have this functionality. Please, use a Compiler instead.",
     );
   }
 
@@ -53,7 +53,7 @@ export abstract class Loader extends Processor<Buildable> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected readContents(_: string): string {
     throw new DiError(
-      "Unfortunately, Loaders don't have this functionality. Please, use a Compiler instead",
+      "Unfortunately, Loaders don't have this functionality. Please, use a Compiler instead.",
     );
   }
 

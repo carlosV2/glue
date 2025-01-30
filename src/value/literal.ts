@@ -1,7 +1,7 @@
 import type { DefinitionContext, RunningContext } from '../context/index';
 import { Buildable } from '../buildable';
 import { Value } from '../value';
-import { isArray, isDictionary, unzip, zip } from '../utils';
+import { isArray, isDictionary, isString, unzip, zip } from '../utils';
 
 export class Literal extends Value {
   private readonly value: unknown;
@@ -31,6 +31,27 @@ export class Literal extends Value {
         values.map(element => this.buildItem(context, element)),
       );
       return Object.fromEntries(zip([ids, results]));
+    }
+
+    if (isString(item)) {
+      const container = context.getContainer();
+      const placeholders = [...item.matchAll(/(?<!\\)\$\{([^}]+)\}/g)].map(
+        match => match[1],
+      );
+      const parameters = await Promise.all(
+        [...new Set(placeholders)].map(
+          async name => [name, await container.getParameter(name)] as const,
+        ),
+      );
+
+      let result = item;
+      for (const [name, value] of parameters) {
+        const escaped = name.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        const regex = new RegExp(`(?<!\\\\)\\$\\{${escaped}\\}`, 'g');
+        result = result.replace(regex, String(value));
+      }
+
+      return result;
     }
 
     return item;
