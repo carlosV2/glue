@@ -57,6 +57,10 @@ export function zip<T, Y>([ts, ys]: [T[], Y[]]): [T, Y][] {
   return result;
 }
 
+export function zipObject<V>(keys: string[], values: V[]): Dictionary<V> {
+  return Object.fromEntries(zip([keys, values]));
+}
+
 export function unzip<T, Y>(data: [T, Y][]): [T[], Y[]] {
   const ts: T[] = [];
   const ys: Y[] = [];
@@ -102,4 +106,12 @@ export function getCallerFile(): Maybe<string> {
   }
 
   return undefined;
+}
+
+export async function resolvePromises<T>(
+  obj: Dictionary<Promise<T>>,
+): Promise<Dictionary<T>> {
+  const [keys, promises] = unzip(Object.entries(obj));
+  const values = await Promise.all(promises);
+  return zipObject(keys, values);
 }

@@ -1,6 +1,6 @@
 import type { DefinitionContext, RunningContext } from '../context/index';
 import { Value } from '../value';
-import { Dictionary, zip } from '../utils';
+import { Dictionary, zipObject } from '../utils';
 
 export class TagObject extends Value {
   private readonly name: string;
@@ -18,7 +18,7 @@ export class TagObject extends Value {
       ids.map(id => container.get(id, context)),
     );
 
-    return Object.fromEntries(zip([ids, services]));
+    return zipObject(ids, services);
   }
 }
 

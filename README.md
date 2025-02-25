@@ -162,6 +162,34 @@ defined as an string with one of the following leading characters:
 Service definitions are also valid values thus allowing service definitions to have other service definitions
 nested.
 
+Parameter interpolation
+-----------------------
+
+String values are allowed to have placeholders pointing to other values. Those placeholders will be evaluated
+during run time and replaced with the parameters they point at.
+
+In order to interpolate parameters, the placeholder must be surrounded like this `@{placeholder}`.
+
+For example:
+``` yaml
+parameters:
+  library: glue
+  opinion: '@{library} is awesome!'
+```
+
+When pulling the `option` parameter, the container will return `glue is awesome!`.
+
+If interpolation is not desired, it can be escaped with `\`.
+
+For example:
+``` yaml
+parameters:
+  placeholder: parameter
+  message: 'You can replace any \@{placeholder} found in a @{placeholder}'
+```
+
+When pulling the `message` parameter, the container will return `You can replace any @{placeholder} found in a parameter`.
+
 
 Terminations
 ------------
