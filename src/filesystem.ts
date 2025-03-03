@@ -44,5 +44,15 @@ export function getFullPath(baseFile: string, relative: string): string {
 }
 
 export function fileExists(path: string): boolean {
-  return existsSync(path);
+  // If the path points to a file, then we found it
+  if (isFile(path)) {
+    return true;
+  }
+
+  // If the folder has an `index.js` or `index.ts`, this is path we wanted
+  return isFile(join(path, 'index.js')) || isFile(join(path, 'index.ts'));
+}
+
+export function isFile(path: string): boolean {
+  return existsSync(path) && lstatSync(path).isFile();
 }
